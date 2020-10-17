@@ -34,7 +34,9 @@ int main() {
     add_cell(51, 51);
     add_cell(51, 52);
     add_cell(52, 51);
-    
+
+    printf("%s\n", ALIVE);
+
     show_grid_ncurses();
     printf("-------- START --------\n");
     sleep(2);
@@ -43,6 +45,6 @@ int main() {
         update_grid();
         show_grid_ncurses();
         printf("------------------------ G:%d ------------------------\n", i);
-        usleep(50000);
+        usleep(100000);
     }
 }

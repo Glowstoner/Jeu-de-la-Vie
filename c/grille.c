@@ -1,6 +1,7 @@
 #include<stdlib.h>
 #include<stdio.h>
-#include<ncurses.h>
+#include<ncursesw/ncurses.h>
+#include<locale.h>
 #include"grille.h"
 
 void handle_grid_ncurses();
@@ -10,7 +11,7 @@ void init_grid(int row, int col) {
     for(int i = 0; i < row; i++) {
         g[i] = malloc(sizeof(unsigned char) * col);
         for(int j = 0; j < col; j++) {
-            g[i][j] = '.';
+            g[i][j] = 0;
         }
     }
 
@@ -20,14 +21,20 @@ void init_grid(int row, int col) {
 }
 
 void init_grid_ncurses() {
+    setlocale(LC_ALL, "");
     initscr();
     init_grid(LINES, COLS);
+    curs_set(0);
 }
 
 void show_grid_basic() {
     for(int i = G.row - 1; i >= 0; i--) {
         for(int j = 0; j < G.col; j++) {
-            printf("%c ", G.grid[i][j]);
+            if(G.grid[i][j]) {
+                printf("%s", ALIVE);
+            }else {
+                printf(" ");
+            }
         }
         printf("\n");
     }
@@ -44,7 +51,11 @@ void show_grid_ncurses() {
 
     for(int i = 0; i < G.row; i++) {
         for(int j = 0; j < G.col; j++) {
-            mvaddch(i, j, G.grid[i][j]);
+            if(G.grid[i][j]) {
+                mvaddstr(i, j, ALIVE);
+            }else {
+                mvaddstr(i, j, " ");
+            }
         }
     }
     refresh();
@@ -57,7 +68,7 @@ void add_cell(int x, int y) {
         exit(EXIT_FAILURE);
     }
 
-    G.grid[y][x] = '@';
+    G.grid[y][x] = 1;
 }
 
 int get_neighbours_alive(int x, int y) {
@@ -68,7 +79,7 @@ int get_neighbours_alive(int x, int y) {
                 continue;
             }
 
-            if(G.grid[y+i][x+j] == '@') {
+            if(G.grid[y+i][x+j]) {
                 c++;
             }
         }
@@ -85,18 +96,18 @@ void update_grid() {
 
     for(int i = 0; i < G.row; i++) {
         for(int j = 0; j < G.col; j++) {
-            if(G.grid[i][j] == '@') {
+            if(G.grid[i][j]) {
                 int na = get_neighbours_alive(j, i);
                 if(!(na == 2 || na == 3)) {
-                    g[i][j] = '.';
+                    g[i][j] = 0;
                 }else {
-                    g[i][j] = '@';
+                    g[i][j] = 1;
                 }
             }else {
                 if(get_neighbours_alive(j, i) == 3) {
-                    g[i][j] = '@';
+                    g[i][j] = 1;
                 }else {
-                    g[i][j] = '.';
+                    g[i][j] = 0;
                 }
             }
         }

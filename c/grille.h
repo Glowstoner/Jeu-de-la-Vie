@@ -1,6 +1,9 @@
 #ifndef GRILLE_H
 #define GRILLE_H
 
+#define ALIVE "\u2588"
+#define DEATH " "
+
 typedef struct {
     int row;
     int col;
