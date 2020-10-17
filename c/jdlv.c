@@ -1,6 +1,5 @@
 #include<stdlib.h>
 #include<stdio.h>
-#include<unistd.h>
 #include"grille.h"
 
 int main() {
@@ -29,22 +28,12 @@ int main() {
     add_cell(&g, 52, 51);
     add_cell(&g, 52, 52);*/
 
-    add_cell(50, 50);
-    add_cell(51, 50);
-    add_cell(51, 51);
-    add_cell(51, 52);
-    add_cell(52, 51);
+    add_cell(100, 50);
+    add_cell(101, 50);
+    add_cell(101, 51);
+    add_cell(101, 52);
+    add_cell(102, 51);
 
-    printf("%s\n", ALIVE);
-
-    show_grid_ncurses();
-    printf("-------- START --------\n");
-    sleep(2);
-
-    for(int i = 1; i <= 5000; i++) {
-        update_grid();
-        show_grid_ncurses();
-        printf("------------------------ G:%d ------------------------\n", i);
-        usleep(100000);
-    }
+    randomize_grid();
+    start_game();
 }
