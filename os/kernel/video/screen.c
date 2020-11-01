@@ -17,20 +17,30 @@ void set_offset(int offset) {
 }
 
 void clear() {
-    int size = ROWS * COLS;
-    unsigned char* VIDEOMEM = (unsigned char*) 0xb8000;
+    int size = XMAX * YMAX;
+    unsigned char* VIDEOMEM = (unsigned char*) VIDMEM;
     for(int i = 0; i < size; i++) {
         VIDEOMEM[i*2] = ' ';
-        VIDEOMEM[i*2+1] = RED_BACKGROUND;
+        VIDEOMEM[i*2+1] = TEXT;
     }
     set_offset(0);
 }
 
-void putchar(unsigned char c, int x, int y) {
-    unsigned char* VIDEOMEM = (unsigned char*) 0xb8000;
-    *(VIDEOMEM + 2 * (y * ROWS + x)) = c;
-    *(VIDEOMEM + 2 * (y * ROWS + x) + 1) = RED_TEXT;
-    set_offset(2 * (y * ROWS + x));
+void putchar(unsigned char c, int spec, int x, int y) {
+    unsigned char* VIDEOMEM = (unsigned char*) VIDMEM;
+    *(VIDEOMEM + 2 * (y * XMAX + x)) = c;
+    *(VIDEOMEM + 2 * (y * XMAX + x) + 1) = spec;
+    set_offset(2 * (y * XMAX + x));
+}
+
+void putstring(char* text, int spec, int y) {
+    unsigned char* VIDEOMEM = (unsigned char*) VIDMEM;
+    int c = 0;
+    while(text[c] != '\0') {
+        *(VIDEOMEM + 2 * (y * XMAX + c)) = text[c];
+        *(VIDEOMEM + 2 * (y * XMAX + c) + 1) = spec;
+        c++;
+    }
 }
 
 unsigned char port_byte_in(unsigned short port) {
