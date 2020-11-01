@@ -35,7 +35,6 @@ class Cellule:
         self.__actuel = self.__futur
 
     def calcule_etat_futur(self):
-        #if len(self.__voisins) > 0: print(len(self.__voisins))
         if self.__actuel:
             self.__futur = len(self.__voisins) == 2 or len(self.__voisins) == 3
         else:
@@ -128,7 +127,7 @@ def effacer_ecran():
     print("\u001B[H\u001BJ")
 
 if __name__ == "__main__":
-    g = Grille(50, 50)
+    g = Grille(100, 50)
 
     """g.getXY(20, 20).naitre()
     g.getXY(20, 21).naitre()
