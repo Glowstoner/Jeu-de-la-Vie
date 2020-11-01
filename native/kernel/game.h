@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GAME_H
+#define GAME_H
 
 #include "video/screen.h"
 #define DELAY 100000000
@@ -12,3 +13,5 @@ void display_grid(GRID g);
 void update_grid(GRID g);
 void init_grid(GRID g);
 void add_infobar();
+
+#endif

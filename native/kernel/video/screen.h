@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SCREEN_H
+#define SCREEN_H
 
 #define YMAX 25
 #define XMAX 80
@@ -12,3 +13,5 @@
 void putchar(unsigned char c, int spec, int x, int y);
 void putstring(char* text, int spec, int y);
 void clear();
+
+#endif
