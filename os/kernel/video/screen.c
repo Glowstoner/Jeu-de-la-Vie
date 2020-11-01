@@ -23,14 +23,14 @@ void clear() {
         VIDEOMEM[i*2] = ' ';
         VIDEOMEM[i*2+1] = TEXT;
     }
-    set_offset(0);
+    //set_offset(0);
 }
 
 void putchar(unsigned char c, int spec, int x, int y) {
     unsigned char* VIDEOMEM = (unsigned char*) VIDMEM;
     *(VIDEOMEM + 2 * (y * XMAX + x)) = c;
     *(VIDEOMEM + 2 * (y * XMAX + x) + 1) = spec;
-    set_offset(2 * (y * XMAX + x));
+    //set_offset(2 * (y * XMAX + x));
 }
 
 void putstring(char* text, int spec, int y) {

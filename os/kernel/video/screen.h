@@ -9,7 +9,7 @@
 
 #define REG_SCREEN_CTRL 0x3d4
 #define REG_SCREEN_DATA 0x3d5
-#define VIDMEM 0xA0000
+#define VIDMEM 0xB8000
 
 void set_offset(int offset);
 int get_offset();
